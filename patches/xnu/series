@@ -1,0 +1,3 @@
+native-board-init-hook.patch
+native-msdc-personality.patch
+native-ns16550-serial.patch
