@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BSD-2-Clause-Patent
-// MediaTek MT8167: the resources that UniXNU exports to the ADT (devicetree.py). Addresses from the MT8167 vendor device tree.
+// MediaTek MT8167: the resources that UniXNU exports to the ADT (devicetree.py). Addresses as in Linux
+// arch/arm64/boot/dts/mediatek/mt8516.dtsi (v6.12, which mt8167.dtsi includes), checked on the Benesse TAB-A04-BR3.
 / {
     #address-cells = <2>;
     #size-cells = <2>;
@@ -26,8 +27,11 @@
         #address-cells = <2>;
         #size-cells = <2>;
         ranges;
+        interrupt-parent = <&gic>;
 
-        // GIC-400 (GICv2): distributor and CPU interface.
+        // GIC-400 (GICv2): distributor and CPU interface. Linux lists GICC at 0x10320000 with 4 KiB; the GIC-400 repeats each
+        // 4 KiB CPU interface page across 64 KiB, so 0x1032f000 + 8 KiB covers both GICC pages contiguously (GICC_DIR at +0x1000).
+        // ArmCpu's GICv2 path used this window on hardware.
         gic: interrupt-controller@10310000 {
             compatible = "arm,gic-400";
             unixnu,adt-name = "intc";
@@ -52,6 +56,7 @@
             compatible = "mediatek,mt8167-mmc";
             unixnu,adt-name = "mmc0";
             reg = <0 0x11120000 0 0x1000>;
+            interrupts = <0 78 8>;   // GIC_SPI 78 IRQ_TYPE_LEVEL_LOW
             status = "disabled";
         };
     };

@@ -3,10 +3,10 @@ schema_version = 2
 [soc]
 name = "mt8167"
 description = "MediaTek MT8167 (4x Cortex-A35, GIC-400, MSDC eMMC, PowerVR GE8300)"
-# Register facts: the MT8167 Linux device tree of the board vendor kernel (CT3 GPL release, kernel-4.4
-# arch/arm64/boot/dts/mediatek/mt8167.dtsi) and the earlier a04br3 ports that ran on this SoC.
-source_repository = "https://github.com/mouseos/UniXNU-a04br3"
-source_revision = "59ac905c3b2ee9a38fd2b0ba8a3d457ac6bae8b2"
+# Register facts: Linux arch/arm64/boot/dts/mediatek/mt8167.dtsi and mt8516.dtsi (v6.12), checked on the Benesse
+# TAB-A04-BR3 (github.com/mouseos/UniXNU-a04br3).
+source_repository = "https://github.com/torvalds/linux"
+source_revision = "adc218676eef25575469234709c2d87185ca223a"
 
 [components]
 include = ["ArmDTPlatform", "ArmCpu"]

@@ -1,0 +1,21 @@
+From: yuma shimizu <46545607+mouseos@users.noreply.github.com>
+Subject: [PATCH] mt8167-msdc-personality: IOKit personality of the MT8167 eMMC driver
+
+MT8167 boards link the MSDC eMMC driver NativeMsdc (github.com/mouseos/NativeMsdc) into the kernel. It matches the
+platform device of the msdc0 ADT node. The personality is part of every MT8167 kernel that takes this series; a board
+without the driver archive only logs the missing class.
+
+--- a/iokit/KernelConfigTables.cpp
++++ b/iokit/KernelConfigTables.cpp
+@@ -56,6 +56,11 @@
+     "     'IOProviderClass' = IOPlatformExpertDevice;"
+     "     'IOProbeScore'    = 0:32;"
+     "   },"
++    "   {"
++    "     'IOClass'         = NativeMsdc;"
++    "     'IOProviderClass' = IOPlatformDevice;"
++    "     'IOProbeScore'    = 1000:32;"
++    "   },"
+     "   {"
+     "     'IOClass'         = IOExclaveProxy;"
+     "     'IOProviderClass' = IOService;"
